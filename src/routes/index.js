@@ -37,11 +37,11 @@ router.delete('/products/:id');
 
 // Category Routes
 
-router.get('/categorys', getAllCategorys);
-router.get('/categorys/:id', getByIdCategory);
+router.get('/categories', getAllCategorys);
+router.get('/categories/:id', getByIdCategory);
 
-router.post('/categorys', createCategory);
-router.put('/categorys/:id', updateCategory);
-router.delete('/categorys/:id');
+router.post('/categories', createCategory);
+router.put('/categories/:id', updateCategory);
+router.delete('/categories/:id');
 
 module.exports = router;

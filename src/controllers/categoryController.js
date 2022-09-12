@@ -1,3 +1,4 @@
+const { validateCategory } = require('../helpers/validationSchema');
 const {
   create, listAll, update, listById,
 } = require('../services/categoryService');
@@ -25,6 +26,11 @@ const getByIdCategory = async (req, res, next) => {
 const createCategory = async (req, res, next) => {
   try {
     const { name } = req.body;
+
+    const { error } = validateCategory(req.body);
+    if (error) {
+      return res.status(400).json(error.details);
+    }
     const category = await create({ name });
     return res.status(201).json(category);
   } catch (e) {

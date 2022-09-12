@@ -1,3 +1,4 @@
+const { validateProduct } = require('../helpers/validationSchema');
 const {
   create, listAll, update, listById,
 } = require('../services/productService');
@@ -27,6 +28,12 @@ const createProduct = async (req, res, next) => {
     const {
       title, description, image, stock, price, category_id,
     } = req.body;
+
+    const { error } = validateProduct(req.body);
+
+    if (error) {
+      return res.status(400).json(error.details);
+    }
     const product = await create({
       title,
       description,

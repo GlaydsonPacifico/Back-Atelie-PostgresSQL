@@ -2,6 +2,8 @@ const {
   create, listAll, update, listById,
 } = require('../services/userService');
 
+const { validateUser } = require('../helpers/validationSchema');
+
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await listAll();
@@ -27,6 +29,13 @@ const createUser = async (req, res, next) => {
     const {
       email, password, first_name, last_name, address, phone, role,
     } = req.body;
+
+    const { error } = validateUser(req.body);
+
+    if (error) {
+      return res.status(400).json(error.details);
+    }
+
     const user = await create({
       email,
       password,
